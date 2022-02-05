@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>★ 컴포넌트 등록 직접 실습(60p)</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <h3>{{ message }}</h3>
+        <todo-footer></todo-footer>
+        <todo-list></todo-list>
+        <todo-list2></todo-list2>
+    </div>
+    <div id="app2">
+        <todo-footer></todo-footer>
+        <todo-list></todo-list>
+        <todo-list2></todo-list2>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script>
+        Vue.component("todo-footer", {
+            template : "<p>이건 다른 전역 자식 컴포넌트이다.</p>"
+        });
+        var tem = {
+            template:" <p>이건 다른 지역 자식 컴포넌트이다. 지역 컴포넌트 등록 어렵네</p>"
+        }
+        new Vue({
+            el: "#app",
+            data : {
+                message: "This is a parent component"
+            },
+            components: {
+                "todo-list": tem,
+                "todo-list2": tem
+            }
+        });
+    </script>
+</body>
+</html>

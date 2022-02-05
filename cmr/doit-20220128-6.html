@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>상 하위 컴포넌트 prop 속성을 사용한 데이터 전달</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind 속성을 통해 prosdata = message 를 통해 message - propsdata와 연결-->
+        <!-- 종류 : 하위 속성 이름 = 상위 컴포넌트 data 속성-->
+        <child-component v-bind:propsdata="message"></child-component>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script>
+        
+        Vue.component("child-component",{
+            //props 속성을 통해 propsdata 속성을 받아옴. 단, 위의 bind 로 인해 메세지를 받아옴
+            props: ["propsdata"],
+            //템플릿 적용. 위 내용으로 {{message}}와 동일
+            template:"<p>{{propsdata}}</p>"
+        });
+        new Vue({
+            el: "#app",
+            data:{
+                message:"Hello Vue! passd from Parent Component"
+            }
+        }); 
+        
+        
+        
+        //props 속성은 [상위] 컴포넌트에서 [하위] 컴포넌트로 데이터를 전달할 때 사용하는 속성
+        //컴포넌트 등록의 순간 인스턴스는 상위, 컴포넌트는 하위가 된다. 이렇게 새 컴포넌트를 등록한 인스턴스를 최상위 컴포넌트라고 부른다.
+        //상위-하위 컴포넌트란 트리 구조에서 부모 노드, 자식 노드처럼 컴포넌트 간의 관계가 부모, 자식으로 이루어진 컴포넌트를 의미합니다.
+        //1. new Vue() 로 인스턴스 생성
+        //2. Vue.component()를 이용하여 하위 컴포넌트인 child-component 를 등록한다.
+        //3. child-component의 내용에  props 속성으로 propsdata를 정의한다.
+        //4. Html 에 컴포넌트 태그를 추가한다. <child-component> 태그의 v-bind 속성을 보면, v-bind: propsdata="message"는 상위 컴포넌트의 message 속성값인 텍스트를 하위 컴포넌트의 propsdata로 전달
+    </script>
+</body>
+</html>

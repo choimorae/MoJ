@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>전역컴포넌트와 지역컴포넌트 유효범위</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <h3>첫 번째 인스턴스 영역</h3>
+        <my-global-component></my-global-component>
+        <my-local-component></my-local-component>
+    </div>
+    <div id="app2">
+        <h3>두 번째 인스턴스 영역</h3>
+        <my-global-component></my-global-component>
+        <my-local-component></my-local-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script>
+        //전역 컴포넌트 등록
+        Vue.component("my-global-component",{
+            template: "<div>전역 컴포넌트입니다.</div>"
+        });
+
+        //지역 컴포넌트 내용
+        var cmp = {
+            template: "<div>지역 컴포넌트입니다.</div>"
+        };
+        new Vue({
+            el:"#app",
+            components: {
+                "my-local-component": cmp
+            }
+        });
+        new Vue({
+            el: "#app2",
+            components: {
+                "my-local-component": cmp
+            }
+        });
+        /*
+            new Vue el 범위 안에서는 컴포넌트 이름과 태그만 맞으면 내용이 나타난다.
+            (한 번 등록하면 어느 인스턴스에서든지 사용 가능)
+            반면 지역 컴표넌트는 el 속성의 유효 범위 내에서만 동작하므로, 두번째 인스턴스에서도 사용하려면 속성값을 재지정해주어야 한다.
+            (새 인스턴스를 등록 할 때마다 등록해줘야 함.)
+        */
+    </script>
+</body>
+</html>

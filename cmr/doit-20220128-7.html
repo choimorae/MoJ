@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>상 하위 컴포넌트 이벤트 전달</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <!--[이벤트 수신]-->
+        <!--하위 컴포넌트 이벤트 명 -->
+        <!--v-on으로 발생한 이벤트 printText 를 받음. (버튼은 하위 컴포넌트이며 하위 컴포넌트 클릭 이벤트를 받아 상위 컴포넌트 이벤트를 호출하여 실행)-->
+        <!--종류: 하위 컴포넌트 이벤트명 = 상위 메소드명(지정)-->
+        <child-component v-on:show-log="printText"></child-component>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script>
+        
+        Vue.component("child-component",{
+            template: '<button v-on:click="showLog">show</button>',
+            methods:{
+                showLog: function(){
+                    //$emit 를 호출하여 show-log [이벤트 발생]
+                    //this 는 하위 컴포넌트
+                    //this.$emit(이벤트명)
+                    this.$emit("show-log");
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "Hello Vue! passed from Parent Component"
+            },
+            methods: {
+                printText: function(){
+                    console.log("received an event");
+                }
+            }
+        });
+
+        //1. [show]버튼을 클릭하면 클릭 이벤트 v-on:click="showLog"에 따라 showLog() 메서드가 실행됨.
+        //2. showLog() 메서트 안에 this.$emit("show-log")가 실행되면서 show-log 이벤트 발생
+        //3. show-log  이벤트는 <child-componenet>에 정의한 v-on:show-log에 전달되고, v-on:show-log 의 대상 메서드인 최상위 컴포넌트의 메서드 printText()가 실행됩니다.
+        //4. printText()는 ~~~라는 로그를 출력하는 메서드이므로 마지막으로 콘솔에 로그가 출력됩니다.
+
+        //일반적으로 $emit()를 호출하는 위치는 하위 컴포넌트의 특정 메서드 내부
+        //prop 는 상위에서 하위로 이동
+        //하위에서 상위는 이벤트를 발생시켜 신호
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Vue 인스턴스 생성과 Vue 라이프 사이클</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+    <!--
+        여기에
+        {{ message }}
+        를 두면 인스턴스의 유효범위를 벗어나므로 단순히 위 내용이 그대로 찍히게 된다.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script>
+        //Vue 인스턴스 생성과 Vue 라이프 사이클
+        new Vue({
+            el: "#app",
+            data: {
+                message: 'Hello Vue.js!'
+            },
+            beforeCreate: function(){
+                console.log("beforeCreate");
+            },
+            created: function(){
+                console.log("created");
+            },
+            mounted: function(){
+                console.log("mounted");
+                this.message = "Hello Vue!"
+            },
+            updated: function(){
+                console.log("updated");
+            }
+        })
+    </script>
+</body>
+</html>
