@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>상 하위 컴포넌트 prop 속성을 사용한 데이터 전달</title>
+    <title>상 하위 컴포넌트 prop 속성을 사용한 데이터 전달(상-> 하)</title>
     <link rel="favicon" href="favicon.ico">
 </head>
 <body>
@@ -17,7 +17,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
     <script>
-        
+        //전역 컴포넌트
         Vue.component("child-component",{
             //props 속성을 통해 propsdata 속성을 받아옴. 단, 위의 bind 로 인해 메세지를 받아옴
             props: ["propsdata"],

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>테스트</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <sibling-component v-bind:propsdata = message></sibling-component>
+        <sibling-component2 v-bind:propsdata = anotherMessage></sibling-component2>
+        <child-el></child-el>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script>
+        Vue.component("sibling-component", {
+            props: ["propsdata"],
+            template: "<p>{{ propsdata }}</p>"
+        });
+        Vue.component("sibling-component2", {
+            props: ["propsdata"],
+            template: "<p>{{ propsdata }}</p>"
+        })
+        /*변수 없이 바로 대입도 가능*/
+        var cmp = {
+            template : "<p>뭐야아~!!! {{ selfTestProp }}</p>",
+            data : function(){
+                return {
+                    selfTestProp: "아니 뭐 이래 어렵잖아!!!!!"
+                }
+            }
+        }
+        new Vue({
+            el: "#app",
+            data:{
+                message:"Hello Vue! passed from Parent Component",
+                anotherMessage: "HaHaHa..",
+            },
+            components: {
+                "child-el": cmp
+            }
+        });
+    </script>
+</body>
+</html>

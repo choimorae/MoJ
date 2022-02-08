@@ -18,8 +18,10 @@
         var eventBus = new Vue();
 
         Vue.component("child-component", {
+            //하위 컴포넌트에 template 속성과 method 속성 정의. template 속성에는 '하위 컴포넌트 영역입니다' 라는 텍스트와 [show]버튼을 정의함.
             template: "<div>하위 컴포넌트 영역입니다. <button v-on:click='showLog'>show</button></div>",
             //이벤트를 보내느 컴포넌트
+            //methods 송성에는 showLog 메서드를 [정의]함. 메서드 안에는 eventBus.$emit()을 선언하여 reiggerEventBus 라는 이벤트를 발생하는 로직을 추가함. 이 이벤트는 발생할 때 수신하는 쪽에 인자값으로 100이라는 숫자를 함께 전달함.
             methods:{
                 showLog: function(){
                     eventBus.$emit("triggerEventBus", 100);
@@ -30,12 +32,16 @@
         var app = new Vue({
             el: "#app",
             //이벤트를 받는 컴포넌트
+            //상위 컴포넌트의 created 라이프 사이클 훅에 eventBus.$on()으로 이벤트를 받는 로직을 선언함. 발생한 이벤트 triggerEvent를 수수신할 때 앞에서(하위 컴포넌트)전달된 인자값 100이 콘솔에 출력.
             created: function(){
                 eventBus.$on("triggerEventBus", function(value){
                     console.log("이벤트를 전달받음. 전달받은 값", value);
                 });
             }
         });
+
+        //1. 이벤트 버스로 활용할 새 인스턴스 생성(var eventBus = new Vue())
+        //뷰엑스(Vuex)상태관리 도구 필요
     </script>
 </body>
 </html>

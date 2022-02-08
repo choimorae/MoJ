@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>상 하위 컴포넌트 이벤트 전달</title>
+    <title>상 하위 컴포넌트 이벤트 전달(하->상)</title>
     <link rel="favicon" href="favicon.ico">
 </head>
 <body>
@@ -20,12 +20,13 @@
     <script>
         
         Vue.component("child-component",{
+            //v-on: 동작 = 메소드 이벤트 명
             template: '<button v-on:click="showLog">show</button>',
             methods:{
                 showLog: function(){
                     //$emit 를 호출하여 show-log [이벤트 발생]
                     //this 는 하위 컴포넌트
-                    //this.$emit(이벤트명)
+                    //this.$emit(하위 컴포넌트 이벤트명)
                     this.$emit("show-log");
                 }
             }
@@ -38,6 +39,7 @@
             },
             methods: {
                 printText: function(){
+                    //동작
                     console.log("received an event");
                 }
             }

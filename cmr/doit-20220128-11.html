@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>네스티드 라우터</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <!-- 해설보는 중-->
+    <div id="app">
+        <router-view></router-view>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script>
+        //S: 컴포넌트 내용 정의
+        var User = {
+            template : `
+                <div>
+                    User Component
+                    <router-view></router-view>
+                </div>
+            `
+        };
+        var UserProfile = {template: "<p>User Profile Component</p>"};
+        var UserPost = {template: "<p>User Post Component</p>"};
+        //E: 컴포넌트 내용 정의
+
+        //네스티드 라우팅 정의 
+        var routes = [{
+            path: '/user',
+            component: User,
+            children: [
+                {
+                    path: "posts",
+                    component: UserPost
+                },
+                {
+                    path: "profile",
+                    component: UserProfile
+                }
+            ]
+        }];
+
+        //뷰 라우터 정의
+        var router = new VueRouter({
+            routes
+        });
+
+        //뷰 인스턴스에 라우터 추가
+        var app = new Vue({
+            router
+        }).$mount("#app");
+
+        /*  
+        template 에 들어가는 부호 뜻을 알고 싶다면 클릭
+        https://stackoverflow.com/questions/27678052/usage-of-the-backtick-character-in-javascript
+        */
+        //네스티드 라우터 : 라우터로 페이지를 이동할 때 최소 2개 이상의 컴포넌트를 화면에 나타낼 수 있음. 네스티드라는 단어 (Nested = 중첩)에서 추측할 수 있듯이 상위 컴포넌트 1개에 하위컴포넌트 1개를 포함하는 구조로 아래와 같이 구성된다. URL에 따라서 컴포넌트의 하위 컴포넌트가 다르게 표시된다.
+        //user/post => User 컴포넌트 > Post 컴포넌트 
+        //user/profile => User 컴포넌트 > profile 컴포넌트 
+    </script>
+</body>
+</html>
