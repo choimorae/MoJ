@@ -8,8 +8,8 @@
     <link rel="favicon" href="favicon.ico">
 </head>
 <body>
-    <!-- 해설보는 중-->
     <div id="app">
+        <!--User 컴포넌트가 뿌려질 영역을 정의함-->
         <router-view></router-view>
     </div>
 
@@ -17,6 +17,7 @@
     <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
     <script>
         //S: 컴포넌트 내용 정의
+        //각각 컴포넌트 내용을 각 객체에 정의함. 이 때, 컴포넌트가 전환된 것을 확인할 수 있게 template 속성을 컴포넌트에 추가하는데, [template에 하위 컴포넌트를 표시할 router-view가 있음].
         var User = {
             template : `
                 <div>
@@ -30,7 +31,9 @@
         //E: 컴포넌트 내용 정의
 
         //네스티드 라우팅 정의 
+        //라우터 정보를 정의한다. 제일 먼저 path 속성에는 네스티드 라우터를 실행하는 기본 Url 을 /user로 설정하고 상위컴포넌트는 User 로 설정한다. children 속성에는 Uel 값 /user 다음에 올 URL 에 따라 표시될 하위 컴포넌트를 정의한다. 
         var routes = [{
+            //User 컴포넌트를 상위 컴포넌트로 놓고  URL 에 따라 UserPros 컴포넌트와 UserProfile 컴포넌트를 표시하는 코드이다.
             path: '/user',
             component: User,
             children: [
@@ -46,11 +49,13 @@
         }];
 
         //뷰 라우터 정의
+        //뷰 라우터를 새로 하나 생성하고, 정의한 라우터 정보를 담을 객체 routes 를 정의한다.
         var router = new VueRouter({
             routes
         });
 
         //뷰 인스턴스에 라우터 추가
+        //마지막으로 인스턴스를 하나 생성하고 라우터 정보 router 를 포함한다. 그리고 app 이라는 id 를 가진 요소에 인스턴스를 붙여 화면에 나타낸다. 그리고 $mount 를 이용하여 #app 요소에 인스턴스를 붙여 화면에 나타낸다.
         var app = new Vue({
             router
         }).$mount("#app");
@@ -59,7 +64,7 @@
         template 에 들어가는 부호 뜻을 알고 싶다면 클릭
         https://stackoverflow.com/questions/27678052/usage-of-the-backtick-character-in-javascript
         */
-        //네스티드 라우터 : 라우터로 페이지를 이동할 때 최소 2개 이상의 컴포넌트를 화면에 나타낼 수 있음. 네스티드라는 단어 (Nested = 중첩)에서 추측할 수 있듯이 상위 컴포넌트 1개에 하위컴포넌트 1개를 포함하는 구조로 아래와 같이 구성된다. URL에 따라서 컴포넌트의 하위 컴포넌트가 다르게 표시된다.
+        //네스티드 라우터 : 라우터로 페이지를 이동할 때 최소 2개 이상의 컴포넌트를 화면에 나타낼 수 있음. 네스티드라는 단어 (Nested = 중첩)에서 추측할 수 있듯이 상위 컴포넌트 1개에 하위컴포넌트 1개를 포함하는 구조로 아래와 같이 구성된다. URL에 따라서 컴포넌트의 하위 컴포넌트가 다르게 표시된다. 화면을 구성하는 컴포넌트의 수가 적을 때는 유용하지만 한 번에 더 많은 컴포넌트를 표시하는 데는 한계가 있다.
         //user/post => User 컴포넌트 > Post 컴포넌트 
         //user/profile => User 컴포넌트 > profile 컴포넌트 
     </script>
