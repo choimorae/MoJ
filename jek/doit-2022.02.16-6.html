@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        
+        라우터 전에 라우팅 이해하기.
+        라우팅이란? -> 웹페이지 간의 이동 방법.
+
+        라우팅은 현대 웹 앱 형태중 하나인 싱글 페이지 어플리케이션에서 주로 사용
+        -> 싱글페이지 어플리케이션 
+        페이지를 이동할 때마다 서버에 웹 페이지를 요청하여 새로 갱신하는 것이 아니라
+        미리 해당 페이지들을 받아놓고 페이지 이동 시에 클라이언트의 라우팅을 이용하여
+        화면을 갱신하는 패턴을 적용ㅎㄴ 어플리케이션
+
+
+        라우팅을 이용하면 화면 간의 전환이 매끄럽고 사용자 경험을 향상시킬 수 있다.
+        
+        - 뷰 라우터 -
+
+        뷰에서 라우팅 기능을 구현할 수 있도록 지원하는 공식 라이브러리.
+
+        [ 뷰 라우터를 구현할 때 필요한 특수 태그와 기능 ]
+
+        <router-link to="URL 값">  :  페이지 이동 태그. 화면에서는 <a>로 표시되며 클릭하면 to에 지정한 URL로 이동.
+        <router-view>              :  페이지 표시 태그. 변경되는 URL에 따라 해당 컴포넌트를 뿌려주는 영역.
+        
+    -->
+
+    <div id="app">
+        <h1>뷰 라우터 예제</h1>
+        <p>
+            <router-link to="/main">Main 컴포넌트로 이동</router-link>
+            <router-link to="/login">Login 컴포넌트로 이동</router-link>  
+            <!--
+                URL 값을 변경하는 태그 ----------------------------------------------------------------------------------
+
+                (1) 각 <router-link>는 화면 상에서 [Main 컴포넌트로 이동], [Login 컴포넌트로 이동]이라는 <a> 버튼 태그로 변환되어 표시된다.
+                각 버튼을 클릭하면 to="" 에 정의된 텍스트값이 브라우저 URL 끝에 추가된다. (/main, /login)
+            -->
+        </p>
+        <router-view></router-view> 
+        <!-- 
+            URL값에따라 갱신되는 화면 영역  ----------------------------------------------------------------------------------
+
+            (2) <router-view>는 갱신된 URL에 해당하는 화면을 보여주는 영역으로
+                나타날 화면은 <script>에서 정의된다.
+        -->
+
+    </div>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script> <!--라우터 CDN 추가-->
+    <script>
+
+        //Main, Login 컴포넌트 정의 ----------------------------------------------------------------------------------
+        /*
+            (3) Main과 Login 컴포넌트에는 template속성으로 각 컴포넌트를 구분할 수 있는 정도의
+                간단한 HTML 코드를 정의한다.
+        */
+        var Main = { template: '<div>main</div>' };
+        var Login = { template: '<div>login</div>' };
+
+
+
+
+        //각 URL에 맞춰 표시할 컴포넌트 지정 ----------------------------------------------------------------------------------
+        /*
+            (4) routes 변수에는 URL 값이 /main일 때 Main 컴포넌트를,
+                /login일 때 Login 컴포넌트를 표시하도록 정의한다.
+        */
+        var routes = [
+            { path: '/main', component: Main },
+            { path: '/login', component: Login }
+        ];
+
+
+
+        //뷰 라우터 정의
+        /*
+            (5) router 변수에는 뷰 라우터를 하나 생성하고,
+                routes를 삽입해 URL에 따라 화면이 전환될 수 있게 정의한다.
+        */
+        
+        var router = new VueRouter({
+            routes
+        });
+
+
+
+
+        //뷰 인스턴스에 라우터 추가 ----------------------------------------------------------------------------------
+        /*
+            (6) 새 인스턴스를 생성하고 라우터의 정보가 담긴 router를 추가하는 코드이다.
+                여기서 .$mount()는 el 속성과 같이 인스턴스를 화면에 붙여주는 역할을 한다.
+        */
+        var app = new Vue({
+            router
+        }).$mount('#app');
+
+        /*
+            $mount() API 란?
+
+            el 속성과 동일하게 인스턴스를 화면에 붙이는 역할을 한다.
+            인스턴스를 생성할 때 el속성을 넣지 않았더라도 생성하고 나서
+            $mount()를 이용하면 강제로 인스턴스를 화면에 붙일 수 있다.
+
+            뷰 라우터 공식 문서는 모두 인스턴스 안에 el을 지정하지 않고 라우터만 지정하여 생성한 다음
+            생성된 인스턴스를 $mount()를 이용해 붙이는 식으로 안내하고 있다.
+        */
+    </script>
+</body>
+</html>
