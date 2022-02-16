@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        액시오스 axios
+
+        뷰 커뮤니티에서 가장 많이 사용되는 HTTP 통신 라이브러리.
+
+        axios는 뷰 리소스처럼 HTTP 통신에 대한 간단하고 직관적인 API를 제공한다.
+        API 형식이 다양하여 단순한 호출 이외에도 여러 설정값을 추가하여 함께 호출할 수 있다.
+
+        1. HTTP GET 요청
+        axios.get('URL 주소').then().catch();
+        -> 해당 URL 주소에 대해 HTTP GET 요청을 보낸다.
+           서버에 보낸 데이터를 
+           정상적으로 받아오면 -> then() 안에 정의한 로직이 실행되고
+           데이터를 받아올 때 
+           오류가 발생하면 -> catch()에 정의한 로직이 수행된다.
+
+        2. HTTP POST 요청
+        axios.post('URL 주소').then().catch();
+        -> 해당 URL 주소에 대해 HTTP POST 요청을 보낸다.
+           then()과 catch()의 동작은 상단과 동일
+
+        3. HTTP 요청에 대한 옵션 속성 정의
+        axios({
+            methood: 'get',
+            url: 'URL 주소',
+        });
+        -> HTTP 요청에 대한 자세한 속성들을 직접 정의하여 보낼 수 있다.
+           데이터 요청을 보낼 URL, HTTP 요청 방식,
+           보내는 데이터 유형, 기타 등등
+    -->
+
+    <!-- 액시오스로 데이터 받아오기 -->
+    <div id="app">
+        <button v-on:click="getData">프레임워크 목록 가져오기</button>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> <!--액시오스 axios 라이브러리 로딩-->
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+                getData: function() { //axios GET 요청 API
+                    axios.get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json')
+                    .then(function(response) {
+                        console.log(response);
+                    });
+                }
+            }
+        }) // 라이브러리를 로딩해오는 CDN의 주소와 GET 요청을 보내는 API 형식 부분만 다름.
+    </script>
+    
+</body>
+</html>

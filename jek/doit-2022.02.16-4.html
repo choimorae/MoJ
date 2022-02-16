@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <child-component></child-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+    /*
+        같은 레벨의 컴포넌트 간 통신
+
+        뷰는 상위에서 하위로만 데이터를 전달해야 하는 기본적인 통신 규칙을 따르기 때문에
+        바로 옆 컴포넌트에 값을 전달하려면 하위에서 공통 상위 컴포넌트로 이벤트를 전달한 후
+        공통 상위 컴포넌트에서 2개의 하위 컴포넌트에 props를 보내야 한다.
+
+        상위 컴포넌트가 필요 없음에도 
+        같은 레벨간에 통신을 위해 강제로 상위 컴포넌트를 두어야 한다.
+
+        -> 해결방법 : 이벤트 버스
+
+        - 이벤트 버스 Event Bus -
+
+        개발자가 지정한 2개의 컴포넌트 간에 데이터를 주고받을 수 있는 방법.
+        
+        [이벤트버스 형식]
+        1. 이벤트 버스를 위한 추가 인스턴스 1개 생성
+        var eventBus = new Vue();
+
+        2. 이벤트를 보내는 컴포넌트
+        methods: {
+            메서드명: function() {
+                eventBus.$emit('이벤트명', '데이터');
+            }
+        }       
+
+        3. 이베트를 받는 컴포넌트
+        methods: {
+            created: function() {
+                eventBus.$on('이벤트명', function(데이터) {
+                    ...
+                });
+            }
+        } 
+    */
+        var eventBus = new Vue(); // (1) 이벤트 버스로 활용할 새 인스턴스 생성. eventBus라는 변수에 참조.
+        
+        Vue.component('child-component', {
+            template: '<div>하위 컴포넌트 영역입니다.<button v-on:click="showLog">show</button></div>', 
+            // (2) 하위 컴포넌트에 template이라는 속성과 methods 속성을 정의한다. 
+            methods: {
+                showLog: function() {
+                    eventBus.$emit('triggerEventBus', 100); //(2) triggerEventBus라는 이벤트를 발생시키는 로직 추가 -> 이 이벤트는 발생할 때 수신하는 쪽에 인자 값으로 100 이라는 숫자를 함께 전달한다.
+                }
+            }
+        });
+
+        var app= new Vue({
+            el: '#app',
+            created: function() {
+                eventBus.$on('triggerEventBus', function(value) {
+                    console.log("이벤트를 전달받음. 전달받은 값 : ", value);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

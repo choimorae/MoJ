@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+</head>
+<body>
+    <div id="app">
+        <my-component1></my-component1>
+        <my-component2></my-component2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+
+        //2개의 지역 컴포넌트를 등록 -> 한 컴포넌트에서 다른 컴포넌트의 값을 직접 참조.
+
+        //첫 번째 컴포넌트 내용
+        var cmp1 = {
+            template: '<div>첫 번째 지역 컴포넌트 : {{ cmp1Data }}</div>',
+            data: function() {
+                return {
+                    cmp1Data : 100
+                }
+            }
+        };
+
+        //두 번째 컴포넌트 내용
+        var cmp2 = {
+            template: '<div>두 번째 지역 컴포넌트 : {{ cmp2Data }}</div>',
+            data: function() {
+                return {
+                    cmp2Data : cmp1.data.cmp1Data  // {{ cmp2Data }}는 my-component1 컴포넌트의 data.cmpData1 를 참조한다.
+                }
+            }
+        };
+
+        /*
+            참조값 100이 화면에 표ㅣ되어야 하지만 {{ cmp2Data }}는 아무것도 표시하지 않음.
+
+            -> my-component2에서 my-component1의 값을 직접 참조할 수 없기 때문.
+              컴포넌트의 유효범위로 인해 다른 컴포넌트의 값을 직접 접근하지 못하게 한다.
+
+              다른 컴포넌트의 값을 참조하지 못하기 때문에
+              뷰에서 미리 정의해 놓은 데이터 전달 방식에 따라 
+              일관된 구조로 애플리케이션을 작성하게 된다.
+
+              따라서 개발자 개개인의 스타일대로 구성되지 않고, 
+              어플리케이션이 모두 동일한 데이터 흐름을 갖는다.
+              -> 다른 사람의 코드를 빠르게 파악할 수 있어 협업하기 좋음.
+        */
+
+        /*
+            컴포넌트는 각각 고유한 유효 범위를 갖고 있기 때문에
+            직접 다른 컴포넌트의 값을 참조할 수 없다.
+
+            -> 뷰 프레임워크 자체에서 정의한 컴포넌트 데이터 전달 방법을 따라야한다.
+               기본적인 데이터 전달 방법은
+              상위(부모) - 하위(자식) 컴포넌트 간의 데이터 전달 방법.
+        */
+
+
+        new Vue({
+            el: '#app',
+            //지역 컴포넌트 등록
+            components: {
+                'my-component1' : cmp1,
+                'my-component2' : cmp2
+            }
+        });
+    </script>
+</body>
+</html>
