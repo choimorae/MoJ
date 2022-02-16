@@ -45,6 +45,10 @@
             }
         });
 
+        //내가 이해한 것 : 하위 컴포넌트에 click이벤트가 있음. 하위 컴포넌트 템플릿인 버튼을 누르면 showlog가 발생. 이것을 상위 컴포넌트 메소드를 쓰기 위해 와 DoM 에서 연결. 하위 컴포넌트에 template 으로 치환됐을 때, 하위 컴포넌트 요소 클릭이벤트 메소드 사용-> 상위 메소트로 치환 되므로 하위-> 상위 이벤트라고 한 듯
+
+        //
+
         //1. [show]버튼을 클릭하면 클릭 이벤트 v-on:click="showLog"에 따라 showLog() 메서드가 실행됨.
         //2. showLog() 메서트 안에 this.$emit("show-log")가 실행되면서 show-log 이벤트 발생
         //3. show-log  이벤트는 <child-componenet>에 정의한 v-on:show-log에 전달되고, v-on:show-log 의 대상 메서드인 최상위 컴포넌트의 메서드 printText()가 실행됩니다.
