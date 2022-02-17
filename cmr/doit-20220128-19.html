@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>자바스크립트 표현식 주의점</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <!--{{var a = 10;}} 선언문은 사용 불가(브라우저 실행 시 오류) -->
+        <!--{{if(true){return 100}}}분기 구문은 사용 불가(브라우저 실행 시 오류)-->
+        {{true ? 100: 0}}<!--O, 삼항 연산자로 표현 가능 --> <br>
+        {{message.split('').reverse().join('')}}<!--X, 복잡한 연산은 인스턴스 안에서 수행(코드 가독성, 캐싱효과)--><br>
+        {{reversedMessage}}<!--O, 스크립트에서 computed 속서으로 계산한 후 최종 값만 표현--><br>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: "Hello Vue.js!"
+            },
+            computed:{
+                reversedMessage: function(){
+                    return this.message.split("").reverse().join("");
+                }
+            }
+        });
+
+        //자바스크립트 선언문(var)과 분기구문(if)은 사용 불가
+        //복잡한 연산은 인스턴스 안에서 처리하고 화면에는 간단한 연산  결과만 표시해야 한다.
+    </script>
+</body>
+</html>
