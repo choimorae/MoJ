@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+        이벤트 처리
+
+        화면에서 발생한 이벤트를 처리하기 위해
+        v-on 디렉티브와 methods 속성을 활용한다.
+
+        - v-on 디렉티브 이용하여 이벤트 처리 ---------------------------------------------------------
+
+        <div id="app">
+            <button v-on:click="clickBtn">클릭클릭</button>
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                methods: {
+                    clickBtn: function() {
+                        alert('당신은 버튼을 클릭했다 ㅋ');
+                    }
+                }
+            })
+        </script>
+
+
+        - v-on 디렉티브로 메서드 호출할 때 인자 값 넘기기 ---------------------------------------------------------
+
+        <div id="app">
+            <button v-on:click="clickBtn(10)">클릭클릭</button>
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                methods: {
+                    clickBtn: function(num) {
+                        alert('당신은 버튼을 ' + num + '번 클릭했다 ㅋ');
+                    }
+                }
+            })
+        </script>
+
+
+        - event 인자를 이용해 화면 요소의  돔 이벤트에 접근하기 ---------------------------------------------------------
+
+        <div id="app">
+            <button v-on:click="clickBtn">클릭클릭</button>
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                methods: {
+                    clickBtn: function(event) {
+                        console.log(event);
+                    }
+                }
+            })
+        </script>
+
+        -> HTML 태그에서 v-on:click으로 호출하는 메서드에 인자를 전달하지 않아도
+        clickBtn: function(event) {}와 같이 event 인자를 정의하면
+        해당 돔 요소의 이벤트 객체에 접근할 수 있다.
+
+    -->
+
+    <div id="app">
+        <button v-on:click="clickBtn">클릭클릭</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+                clickBtn: function(event) {
+                    console.log(event);
+                }
+            }
+        })
+    </script>>
+</body>
+
+</html>
