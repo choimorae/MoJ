@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>콧수염, 데이터 바인딩, 디렉티브 테스트</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <p v-bind:id="uid" v-if="flag">{{message}}</p>
+        <button v-on:click="myFunc">클릭</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>          
+        new Vue({
+            el: "#app",
+            data: {
+                message: "Hello Vue.js!",
+                uid: "test10",
+                flag: false
+            },
+            methods:{
+                myFunc: function(){
+                    console.log("됨");
+                }
+            }
+        });
+    </script>
+</body>
+</html>

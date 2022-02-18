@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>고급 템플릿 기법(108p)</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <p>{{ reverseMessage }}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>                                                                                                                                                                                       
+       new Vue({
+           el: "#app",
+           data: {
+               message: "Hello Vue.js!"
+           },
+           computed:{
+                reverseMessage: function(){
+                   return this.message.split('').reverse().join('');
+               }
+           }
+       });
+       //computed 는 데이터 연산들을 정의하는 영역
+       //장점
+       //1. data 속성 값의 변화에 따라 자동으로 다시 연산.
+       //2. 캐싱. 동일한 연산 반복 X 경과같을 미리 저장해 필요할 때 불러옴.
+
+       //methods vs computed?
+       //methods 속성은 호출할 때만 해당 로직이 수행.(수동적 데이터 갱신)
+       //computed 속성은 대상 데이터 값이 변경되면 자동적으로 수행(능동적 데이터 갱신)
+    </script>
+</body>
+</html>

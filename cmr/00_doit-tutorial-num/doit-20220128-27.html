@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Html 파일에서 뷰 코드 작성 시의 한계점</title>
+    <link rel="favicon" href="favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <!-- <your-component></your-component> -->
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.5/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        Vue.component('my-component', {
+            template: 
+            `
+            <div>
+                <h5>complex markup</h5>
+                <ul>
+                    <li><button>can you figure this syntax out?</button></li>
+                    <li>
+                        <p style="color:blue">this is the second list item</p>
+                    </li>
+                    <li><strong>continue on adding more items</strong></li>
+                </ul>
+            </div>
+            `
+        });
+        new Vue({
+            el: "#app",
+            data: {
+                message:"click this button"
+            }
+        });
+        //script 태그 안에서 Html 코드는 구문 강조가 적용되지 않기 때문에 오탈자를 찾기 힘듬
+        //++ 젠코딩 안됨
+        //들여쓰기 힘듬.
+    </script>
+</body>
+</html>
